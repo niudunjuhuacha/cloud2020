@@ -28,8 +28,8 @@ public class PaymentController {
      * @param payment
      * @return
      */
-    @PostMapping(value="/payment/add")
-    public CommonResult add(Payment payment) {
+    @PostMapping(value="/payment/create")
+    public CommonResult create(@RequestBody Payment payment) {
         int result = paymentService.add(payment);
         log.info("************插入结果{}", result);
         if (result > 0) {
@@ -44,8 +44,8 @@ public class PaymentController {
      * @param id
      * @return
      */
-    @GetMapping(value="/payment/getById/{id}")
-    public CommonResult getById(@PathVariable("id") Long id) {
+    @GetMapping(value="/payment/get/{id}")
+    public CommonResult get(@PathVariable("id") Long id) {
         Payment payment = paymentService.getPaymentById(id);
         log.info("**************查询结果{}", payment);
         if (payment != null) {

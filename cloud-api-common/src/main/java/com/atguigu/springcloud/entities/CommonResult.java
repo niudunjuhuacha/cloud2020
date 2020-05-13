@@ -3,6 +3,7 @@ package com.atguigu.springcloud.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 /**
  * @author liuqi
  * @create 2020-04-19 23:51
