@@ -35,15 +35,16 @@ public class PaymentController {
      * 注解作用：@PostMapping = @RequestMapping(method = RequestMethod.POST)。
      * 类似还有@PutMapping、@DeleteMapping、@PatchMapping、@GetMapping
      * 必须加上value=
+     *
      * @param payment
      * @return
      */
-    @PostMapping(value="/payment/create")
+    @PostMapping(value = "/payment/create")
     public CommonResult create(@RequestBody Payment payment) {
         int result = paymentService.add(payment);
         log.info("************插入结果{}", result);
         if (result > 0) {
-            return new CommonResult(200, "添加成功,serverPort:"+serverPort, result);
+            return new CommonResult(200, "添加成功,serverPort:" + serverPort, result);
         } else {
             return new CommonResult(500, "添加失败", null);
         }
@@ -51,32 +52,33 @@ public class PaymentController {
 
     /**
      * 注解作用：@PathVariable，从路径里面去获取变量
+     *
      * @param id
      * @return
      */
-    @GetMapping(value="/payment/get/{id}")
+    @GetMapping(value = "/payment/get/{id}")
     public CommonResult get(@PathVariable("id") Long id) {
         Payment payment = paymentService.getPaymentById(id);
         log.info("**************查询结果{}", payment);
         if (payment != null) {
-            return new CommonResult(200,"查询成功,serverPort:"+serverPort,payment);
-        }else {
-            return new CommonResult(500,"查询结果为空，id是："+id, null);
+            return new CommonResult(200, "查询成功,serverPort:" + serverPort, payment);
+        } else {
+            return new CommonResult(500, "查询结果为空，id是：" + id, null);
         }
     }
 
-    @GetMapping(value="/payment/discovery")
-    public Object discovery(){
+    @GetMapping(value = "/payment/discovery")
+    public Object discovery() {
 
         List<String> services = discoveryClient.getServices();
         for (String service : services) {
-            log.info("service : {}" , service);
+            log.info("service : {}", service);
         }
 
         List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
         for (ServiceInstance instance : instances) {
 //            instance.getInstanceId()
-            log.info("{},{},{},{}",instance.getServiceId(),instance.getHost(),instance.getPort(),instance.getUri());
+            log.info("{},{},{},{}", instance.getServiceId(), instance.getHost(), instance.getPort(), instance.getUri());
         }
 
         return this.discoveryClient;
